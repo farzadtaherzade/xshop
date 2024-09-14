@@ -13,8 +13,8 @@ export const getSession = cache(async () => {
 
   return {
     isAuth: true,
-    userId: session.userId,
-    role: session.isAdmin ? "admin" : "user",
+    userId: session.userId as string,
+    isAdmin: session.isAdmin as boolean,
     email: session.email as string,
     username: session.username as string,
   };

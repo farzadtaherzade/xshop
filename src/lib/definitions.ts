@@ -48,3 +48,11 @@ export type SessionPayload = {
   email: string;
   expiresAt: Date;
 };
+
+export type SessionType = {
+  userId: string;
+  isAdmin: boolean;
+  username: string;
+  email: string;
+  isAuth: boolean;
+} | null;
