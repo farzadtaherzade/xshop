@@ -11,6 +11,7 @@ import {
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 import { SlashIcon } from "@radix-ui/react-icons";
+import { Button } from "@/components/ui/button";
 
 
 const getProduct = async (slug: string) => {
@@ -44,7 +45,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
     return (
         <main>
-            <div className="my-4">
+            <div className="my-6">
                 <Breadcrumb>
                     <BreadcrumbList>
                         <BreadcrumbItem>
@@ -59,13 +60,15 @@ export default async function Page({ params }: { params: { slug: string } }) {
                     </BreadcrumbList>
                 </Breadcrumb>
             </div>
-            <section className="flex flex-col md:flex-row gap-12">
-                <div className="md:flex-1 h-[50vh] w-full relative">
+            <section className="flex flex-col lg:flex-row items-start gap-y-14 h-full">
+                <div className="lg:flex-1 h-[55vh] w-full relative">
                     <Image src={product.images[0]} alt={product.slug} fill className="h-full w-full rounded-lg object-cover object-center" />
                 </div>
-                <div className="flex flex-1 flex-col gap-6">
-                    <h1 className="font-bold text-4xl">{product.title}</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium quo odit culpa cumque facilis dolorem amet doloremque impedit minima voluptas, ipsum facere unde quod! Earum quae voluptates aperiam consequatur neque repellendus vitae maiores, id quisquam qui, illo non totam distinctio, accusantium dolorum expedita omnis rerum eum facere sit? Quae adipisci, quod suscipit provident perferendis eos eveniet commodi rerum nemo cupiditate tempora placeat possimus iste repudiandae. Consequuntur non odit quas blanditiis molestias voluptatem architecto, at exercitationem tempora ipsam esse mollitia iure quo, tempore amet! Consequatur cupiditate quaerat officia veritatis rem molestiae accusamus doloribus. Facilis amet saepe rerum modi aliquid, totam ut maxime, voluptatem, ratione ea atque quidem aperiam delectus deserunt quisquam nam quibusdam.</p>
+                <div className="flex flex-1 lg:max-w-[600px] flex-col h-full gap-6 lg:px-20 items-start justify-end lg:py-8">
+                    <h1 className="font-bold text-5xl">{product.title}</h1>
+                    <p className="font-normal text-neutral-500">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur, blanditiis, perferendis velit dolor ducimus nihil beatae libero necessitatibus reprehenderit esse nam consequatur, numquam officia maxime neque mollitia amet. Voluptatum sit, sunt tempora asperiores harum magnam atque cumque ab necessitatibus architecto ipsam laboriosam. Eaque eos, accusantium quod eveniet eligendi laudantium voluptates!</p>
+                    <p className="font-bold text-2xl tracking-wide">${product.price}</p>
+                    <Button variant="outline" size="lg" className="mt-auto w-full">Add To Cart</Button>
                 </div>
             </section>
         </main>

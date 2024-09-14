@@ -39,7 +39,7 @@ export default function RootLayout({
           <Nav />
           <div className="min-h-screen ">
             <section className="py-12">
-              <div className="md:container md:mx-auto px-4">
+              <div className="lg:container lg:mx-auto px-4">
                 {children}
               </div>
             </section>
