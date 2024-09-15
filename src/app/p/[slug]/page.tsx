@@ -11,8 +11,7 @@ import {
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 import { SlashIcon } from "@radix-ui/react-icons";
-import { Button } from "@/components/ui/button";
-
+import AddToCartButton from "./add-to-cart-button";
 
 const getProduct = async (slug: string) => {
     const product = await prisma.product.findUnique({
@@ -68,7 +67,13 @@ export default async function Page({ params }: { params: { slug: string } }) {
                     <h1 className="font-bold text-5xl">{product.title}</h1>
                     <p className="font-normal text-neutral-500">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur, blanditiis, perferendis velit dolor ducimus nihil beatae libero necessitatibus reprehenderit esse nam consequatur, numquam officia maxime neque mollitia amet. Voluptatum sit, sunt tempora asperiores harum magnam atque cumque ab necessitatibus architecto ipsam laboriosam. Eaque eos, accusantium quod eveniet eligendi laudantium voluptates!</p>
                     <p className="font-bold text-2xl tracking-wide">${product.price}</p>
-                    <Button variant="outline" size="lg" className="mt-auto w-full">Add To Cart</Button>
+                    <AddToCartButton item={{
+                        id: product.id,
+                        title: product.title,
+                        quantity: 1,
+                        image: product.images[0],
+                        price: product.price
+                    }} />
                 </div>
             </section>
         </main>
