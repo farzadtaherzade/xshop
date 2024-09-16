@@ -46,7 +46,7 @@ export function CartSidebar() {
                         ))}
                     </div>
                 </ScrollArea>
-                <div className='space-y-4 pr-6'>
+                <div className='space-y-4 pr-6 mt-auto'>
                     <Separator />
                     <div className='space-y-1.5 text-sm'>
                         <div className='flex'>
@@ -66,10 +66,10 @@ export function CartSidebar() {
                             </span>
                         </div>
                     </div>
+                    <SheetFooter>
+                        <Button type="submit" className="w-full">Save changes</Button>
+                    </SheetFooter>
                 </div>
-                <SheetFooter>
-                    <Button type="submit" className="w-full">Save changes</Button>
-                </SheetFooter>
             </SheetContent>
         </Sheet>
     )
