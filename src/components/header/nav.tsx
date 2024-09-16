@@ -2,6 +2,7 @@ import { getSession } from "@/lib/dal"
 import { ModeToggle } from "../mode-toggle"
 import LogoutButton from "../logout-button"
 import Link from "next/link"
+import { CartSidebar } from "../cart-sidebar"
 
 export default async function Nav() {
     const session = await getSession()
@@ -17,8 +18,9 @@ export default async function Nav() {
                         </Link>
                     </nav>
                     <div className="flex space-x-4 items-center">
-                        <LogoutButton session={session} />
                         <ModeToggle />
+                        <CartSidebar />
+                        <LogoutButton session={session} />
                     </div>
                 </div>
             </div>
