@@ -3,13 +3,14 @@ import { ModeToggle } from "../mode-toggle"
 import LogoutButton from "../logout-button"
 import Link from "next/link"
 import { CartSidebar } from "../cart-sidebar"
+import Container from "../ui/container"
 
 export default async function Nav() {
     const session = await getSession()
 
     return (
         <header className="w-full py-10">
-            <div className="md:container md:mx-auto px-4">
+            <Container>
                 <div className="flex justify-between items-center">
                     <Link href="/">logo</Link>
                     <nav>
@@ -23,7 +24,7 @@ export default async function Nav() {
                         <LogoutButton session={session} />
                     </div>
                 </div>
-            </div>
+            </Container>
         </header>
     )
 }

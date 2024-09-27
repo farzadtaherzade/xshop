@@ -9,7 +9,7 @@ export default function ProductCard({ product }: { product: Product }) {
     return (
         <div className='max-w-sm relative w-full flex flex-col items-center gap-y-1'>
             <Link href={`/p/${product.slug}`} className='relative w-full rounded-2xl h-[37vh]'>
-                <Image src={ProductImage} alt='shop' fill className='rounded-2xl' />
+                <img src={product.images[0]} alt='shop' className='w-full h-full rounded-2xl' />
             </Link>
             <Link href={`/p/${product.slug}`}>{product.title}</Link>
             <p>{product.price}</p>

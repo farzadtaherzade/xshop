@@ -3,12 +3,12 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model Product {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(uuid())
   description String
   images      String[]
   price       Int
@@ -17,19 +17,22 @@ model Product {
   title       String
   views       Int      @default(1)
   comments    String[]
+  authorId    String
+  Author      User     @relation(fields: [authorId], references: [id])
 
   @@map("products")
 }
 
 model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  username  String   @unique
-  email     String   @unique
+  id        String    @id @default(uuid())
+  username  String    @unique
+  email     String    @unique
   password  String
-  avatar    String?  @default("")
-  isAdmin   Boolean  @default(false)
-  createdAt DateTime @default(now()) @db.Date
-  updatedAt DateTime @updatedAt @db.Date
+  avatar    String?   @default("")
+  isAdmin   Boolean   @default(false)
+  createdAt DateTime  @default(now()) @db.Date
+  updatedAt DateTime  @updatedAt @db.Date
+  Product   Product[]
 
   @@map("users")
 }
