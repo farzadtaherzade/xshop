@@ -13,6 +13,7 @@ export function ModeToggle() {
         switch (theme) {
             case "dark": return setTheme("light");
             case "light": return setTheme("dark");
+            case "system": return setTheme("dark");
         }
 
     }
