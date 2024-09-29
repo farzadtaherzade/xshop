@@ -3,6 +3,7 @@
 import { getSession } from "@/lib/dal";
 import prisma from "@/lib/db";
 import { utapi } from "@/actions/uploadthing";
+import { revalidatePath } from "next/cache";
 
 export const createProduct = async (
   title: string,
@@ -50,6 +51,25 @@ export const createProduct = async (
     product,
     message: "product created successfully",
     status: 201,
+    error: null,
+  };
+};
+
+export const deleteProduct = async (id: string) => {
+  const session = await getSession();
+  if (!session) return { error: "not authorized" };
+
+  await prisma.product.delete({
+    where: {
+      authorId: session.userId,
+      id,
+    },
+  });
+
+  revalidatePath("/profile/products");
+
+  return {
+    message: "deleted successfully",
     error: null,
   };
 };
