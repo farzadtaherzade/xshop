@@ -54,12 +54,6 @@ export function CartSidebar() {
                             <span>Free</span>
                         </div>
                         <div className='flex'>
-                            <span className='flex-1'>
-                                Transaction Fee
-                            </span>
-                            <span>2</span>
-                        </div>
-                        <div className='flex'>
                             <span className='flex-1'>Total</span>
                             <span>
                                 2

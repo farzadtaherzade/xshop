@@ -3,7 +3,7 @@ import React from 'react'
 import ProductForm from './product-form'
 
 export const metadata: Metadata = {
-    title: 'Create Product',
+    title: 'Create',
     description: 'Create new product',
 }
 

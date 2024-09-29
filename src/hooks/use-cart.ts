@@ -1,3 +1,4 @@
+import { ImageJson } from "@/lib/types";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
@@ -5,7 +6,7 @@ export type CartItem = {
   id: string;
   title: string;
   quantity: number;
-  image: string;
+  image: ImageJson;
   price: number;
 };
 

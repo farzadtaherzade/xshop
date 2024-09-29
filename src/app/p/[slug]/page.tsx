@@ -12,6 +12,7 @@ import {
 import { SlashIcon } from "@radix-ui/react-icons";
 import AddToCartButton from "./add-to-cart-button";
 import ImagesCarousel from "./images";
+import { ImageJson } from "@/lib/types";
 
 const getProduct = async (slug: string) => {
     const product = await prisma.product.findUnique({
@@ -57,7 +58,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
             </div>
             <section className="flex flex-col lg:flex-row items-start gap-y-14 h-full">
                 <div className="lg:flex-1 h-[55vh] w-full relative">
-                    <ImagesCarousel alt={product.slug} images={product.images} mainImage={product.images[0]} />
+                    <ImagesCarousel alt={product.slug} images={product.images as unknown as ImageJson[]} mainImage={product.images[0] as unknown as ImageJson} />
                 </div>
                 <div className="flex flex-1 lg:max-w-[600px] flex-col h-full gap-6 lg:px-20 items-start justify-end lg:py-8">
                     <h1 className="font-bold text-5xl">{product.title}</h1>
@@ -67,7 +68,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                         id: product.id,
                         title: product.title,
                         quantity: 1,
-                        image: product.images[0],
+                        image: product.images[0] as unknown as ImageJson,
                         price: product.price
                     }} />
                 </div>

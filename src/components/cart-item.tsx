@@ -9,7 +9,7 @@ export default function CartItem({ item }: { item: Item }) {
         <div className='py-4'>
             <div className='grid grid-cols-[90px_1fr] gap-x-5 p-1'>
                 <div className='w-full rounded-sm'>
-                    <Image src={item.image} alt={item.id} width="100" height="100" className='w-[90px] h-[85px] rounded-sm object-fill' />
+                    <Image src={item.image.url} alt={item.image.name} width="100" height="100" className='w-[90px] h-[85px] rounded-sm object-fill' />
                 </div>
                 <div className='flex flex-col '>
                     <div className='flex justify-between font-medium text-base flex-1'>
