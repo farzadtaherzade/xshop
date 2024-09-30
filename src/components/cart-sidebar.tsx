@@ -18,6 +18,12 @@ import { Separator } from "@/components/ui/separator"
 export function CartSidebar() {
     const { items } = useCartStore()
     const itemCount = items.length
+    const total = items.reduce((p, c) => {
+        return p + c.quantity
+    }, 0)
+    const price = items.reduce((p, c) => {
+        return p + c.price * c.quantity
+    }, 0)
 
     return (
         <Sheet>
@@ -50,13 +56,15 @@ export function CartSidebar() {
                     <Separator />
                     <div className='space-y-1.5 text-sm'>
                         <div className='flex'>
-                            <span className='flex-1'>Shipping</span>
-                            <span>Free</span>
+                            <span className='flex-1'>Item Count</span>
+                            <span>
+                                {total}
+                            </span>
                         </div>
                         <div className='flex'>
-                            <span className='flex-1'>Total</span>
+                            <span className='flex-1'>Price</span>
                             <span>
-                                2
+                                ${price}
                             </span>
                         </div>
                     </div>
