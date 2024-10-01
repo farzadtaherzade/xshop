@@ -17,8 +17,11 @@ model Product {
   title       String
   views       Int      @default(1)
   comments    String[]
-  authorId    String
-  Author      User     @relation(fields: [authorId], references: [id])
+
+  authorId String
+  Author   User   @relation(fields: [authorId], references: [id])
+
+  Order Order[]
 
   @@map("products")
 }
@@ -33,6 +36,36 @@ model User {
   createdAt DateTime  @default(now()) @db.Date
   updatedAt DateTime  @updatedAt @db.Date
   Product   Product[]
+  Order     Order[]
+  Payment   Payment[]
 
   @@map("users")
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now()) @db.Date
+  status    String
+  total     Int
+
+  userId String
+  User   User   @relation(fields: [userId], references: [id])
+
+  products Product[]
+  Payment  Payment?
+}
+
+model Payment {
+  id      Int     @id @default(autoincrement())
+  token   String
+  amount  Int
+  verify  Boolean @default(false)
+  transId Int?
+
+  userId String
+  User   User   @relation(fields: [userId], references: [id])
+
+  orderId Int   @unique
+  order   Order @relation(fields: [orderId], references: [id])
 }
