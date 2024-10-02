@@ -33,9 +33,9 @@ export default function Page() {
 
     return (
         <main>
-            <h1 className='text-3xl font-bold'>Shopping Cart</h1>
+            <h1 className='text-3xl font-bold mb-3'>Shopping Cart</h1>
             <Separator />
-            <section className='grid grid-cols-[1fr_400px] mt-12 gap-x-12'>
+            <section className='grid md:grid-cols-[1fr_300px] lg:grid-cols-[1fr_400px] mt-12 gap-x-12'>
                 <div className='w-full'>
                     {items.map(item => (
                         <div className='py-4' key={item.id}>
