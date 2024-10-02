@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
   const verifyResult: PayVerifyResponse = data;
   console.log(verifyResult);
   if (verifyResult.status == 1) {
-    const paymentUpdate = await prisma.payment.update({
+    await prisma.payment.update({
       where: {
         id: payment.id,
       },
@@ -47,7 +47,7 @@ export async function GET(request: NextRequest) {
         verify: true,
       },
     });
-    const orderUpdate = await prisma.order.update({
+    await prisma.order.update({
       where: {
         id: order?.id,
       },
