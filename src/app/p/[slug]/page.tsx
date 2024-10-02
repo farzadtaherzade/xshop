@@ -69,7 +69,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
                         title: product.title,
                         quantity: 1,
                         image: product.images[0] as unknown as ImageJson,
-                        price: product.price
+                        price: product.price,
+                        slug: product.slug
                     }} />
                 </div>
             </section>

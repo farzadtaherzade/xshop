@@ -8,6 +8,7 @@ export type CartItem = {
   quantity: number;
   image: ImageJson;
   price: number;
+  slug: string;
 };
 
 export type CartState = {
@@ -44,7 +45,7 @@ export const useCartStore = create<CartState>()(
       increaseQuantity: (id) =>
         set((state) => ({
           items: state.items.map((item) => {
-            if (item.id === id) return { ...item, quantity: item.quantity++ };
+            if (item.id === id) return { ...item, quantity: ++item.quantity };
             return item;
           }),
         })),
@@ -58,7 +59,7 @@ export const useCartStore = create<CartState>()(
           return {
             items: state.items.map((item) => {
               if (item.id === id) {
-                return { ...item, quantity: item.quantity-- };
+                return { ...item, quantity: --item.quantity };
               }
               return item;
             }),

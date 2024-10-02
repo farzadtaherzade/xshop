@@ -22,8 +22,10 @@ export default function AddToCartButton({ item }: { item: CartItem }) {
       size="lg"
       className="mt-auto w-full"
       onClick={() => {
-        addItem(item)
-        setIsSuccess(true)
+        if (!isSuccess) {
+          addItem(item)
+          setIsSuccess(true)
+        }
       }}
     >
       {isSuccess ? "Added!" : "Add to cart"}
