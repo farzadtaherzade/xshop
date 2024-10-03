@@ -1,16 +1,12 @@
 'use client'
 
 import { logout } from "@/actions/auth";
-import { Button } from "@/components/ui/button";
-import { type SessionType } from "@/lib/definitions";
-import Link from "next/link";
+import { ReactNode } from "react";
 
-export default function LogoutButton({ session }: { session: SessionType }) {
+export default function LogoutButton({ children }: { children: ReactNode }) {
     return (
-        <form action={logout}>
-            {session?.isAuth ? <Button type="submit">
-                logout
-            </Button> : <Link href="/signin">signin</Link>}
+        <form action={logout} className="w-full">
+            {children}
         </form>
     )
 }

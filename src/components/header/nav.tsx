@@ -4,6 +4,7 @@ import LogoutButton from "../logout-button"
 import Link from "next/link"
 import { CartSidebar } from "../cart-sidebar"
 import Container from "../ui/container"
+import { UserNav } from "./user-nav"
 
 export default async function Nav() {
     const session = await getSession()
@@ -21,7 +22,7 @@ export default async function Nav() {
                     <div className="flex space-x-4 items-center">
                         <ModeToggle />
                         <CartSidebar />
-                        <LogoutButton session={session} />
+                        <UserNav session={session} />
                     </div>
                 </div>
             </Container>
