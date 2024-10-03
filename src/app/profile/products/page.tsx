@@ -47,7 +47,7 @@ export default async function page() {
                                     <TableCell className="text-center">{p.title}</TableCell>
                                     <TableCell className="w-[70px] text-center">${p.price}</TableCell>
                                     <TableCell className="w-[70px] text-center">
-                                        <Image src={p.images[0]?.url as unknown as string} width={70} height={70} className="ext-center" alt={p.images[0]?.name} />
+                                        <Image src={p.images[0]?.url as unknown as string} width={70} height={70} className="text-center" alt={p.images[0]?.name} />
                                     </TableCell>
                                     <TableCell className="w-[40px] text-center">
                                         <ProductActions id={p.id} />
@@ -58,7 +58,6 @@ export default async function page() {
                     </Table>
                 )
             }
-
         </div>
     )
 }

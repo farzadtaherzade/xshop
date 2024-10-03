@@ -97,7 +97,9 @@ export default function Page() {
                         </span>
                     </div>
                     {
-                        items.length == 0 ? <Button className="w-full mt-auto rounded-[8px]" size="lg" variant="default">Continue shopping</Button>
+                        items.length == 0 ? <Button className="w-full mt-auto rounded-[8px]" size="lg" variant="default" asChild>
+                            <Link href="/p">Continue shopping</Link>
+                        </Button>
                             : <Button className="w-full mt-auto rounded-[8px]" size="lg" variant="default" onClick={payHandler}>Checkout</Button>
                     }
                 </div>

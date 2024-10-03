@@ -13,7 +13,7 @@ export default async function layout({
     if (!session) return null
 
     return (
-        <main className='max-w-screen-md mx-auto'>
+        <main className='max-w-screen-lg mx-auto'>
             <div>
                 <NavLinks session={session} />
                 <Separator className='my-3' />
