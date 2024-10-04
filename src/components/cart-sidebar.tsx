@@ -15,8 +15,9 @@ import CartItem from "./cart-item"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { useRouter } from "next/navigation"
+import { SessionType } from "@/lib/definitions"
 
-export function CartSidebar() {
+export function CartSidebar({ session }: { session: SessionType }) {
     const router = useRouter()
     const { items } = useCartStore()
     const itemCount = items.length
@@ -26,6 +27,8 @@ export function CartSidebar() {
     const price = items.reduce((p, c) => {
         return p + c.price * c.quantity
     }, 0)
+
+    if (!session) return null
 
     return (
         <Sheet>

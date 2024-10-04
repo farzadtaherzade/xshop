@@ -1,7 +1,6 @@
 import {
     Avatar,
     AvatarFallback,
-    AvatarImage,
 } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
@@ -11,7 +10,6 @@ import {
     DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuSeparator,
-    DropdownMenuShortcut,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import LogoutButton from "../logout-button"
@@ -19,7 +17,9 @@ import { SessionType } from "@/lib/definitions"
 import Link from "next/link"
 
 export function UserNav({ session }: { session: SessionType }) {
-    if (!session) return null
+    if (!session) return (
+        <Link href="/signin">Signin</Link>
+    )
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
