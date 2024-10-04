@@ -2,6 +2,8 @@ import { type Product } from '@prisma/client'
 import React from 'react'
 import ProductCard from './product-card'
 
+export const revalidate = 90
+
 const getProducts = async () => {
     const data = await fetch('http://localhost:3000/api/products', {})
     if (data.ok) {
