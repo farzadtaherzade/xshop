@@ -21,11 +21,12 @@ import { createProduct } from "@/actions/product"
 import { useToast } from "@/hooks/use-toast"
 import { useState } from "react"
 import { UploadIcon, XIcon } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 
 const formSchema = z.object({
     title: z.string().min(2).max(50),
-    description: z.string().min(30).max(150),
+    description: z.string().min(20).max(300),
     price: z.number(),
     published: z.boolean().default(false),
     slug: z.string().toLowerCase().regex(/^[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*$/),
@@ -106,7 +107,18 @@ export default function ProductForm() {
                     name="description"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Description</FormLabel>
+                            <FormLabel>
+                                Description <span className={cn(
+                                    "visible text-green-500 text-xs",
+                                    {
+                                        "text-destructive": field.value.length > 300,
+                                    },
+                                    {
+                                        "hidden": field.value.length == 0
+
+                                    }
+                                )}>{field.value.length}</span>
+                            </FormLabel>
                             <FormControl>
                                 <Textarea placeholder="shadcn" {...field} />
                             </FormControl>
