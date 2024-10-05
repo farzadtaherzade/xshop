@@ -14,7 +14,7 @@ export default async function Nav() {
                 <div className="flex justify-between items-center">
                     <Link href="/">logo</Link>
                     <nav>
-                        <Link href='/p'>
+                        <Link href='/products'>
                             Products
                         </Link>
                     </nav>
