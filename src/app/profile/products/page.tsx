@@ -13,6 +13,7 @@ import Image from "next/image"
 import ProductActions from "./product-actions"
 import NotFoundProduct from "./not-found-product"
 import { Metadata } from "next"
+import { ImageJson } from "@/lib/types"
 
 export const metadata: Metadata = {
     title: 'Created Products',
@@ -28,6 +29,8 @@ export default async function page() {
             authorId: session.userId
         },
     })
+
+    const images = products.map((p) => p.images as unknown as ImageJson)
 
     return (
         <div>
@@ -52,7 +55,7 @@ export default async function page() {
                                     <TableCell className="text-center">{p.title}</TableCell>
                                     <TableCell className="w-[70px] text-center">${p.price}</TableCell>
                                     <TableCell className="w-[70px] text-center">
-                                        <Image src={p.images[0]?.url as unknown as string} width={70} height={70} className="text-center" alt={p.images[0]?.name} />
+                                        <Image src={images[id].url as unknown as string} width={70} height={70} className="text-center" alt={images[id].name} />
                                     </TableCell>
                                     <TableCell className="w-[40px] text-center">
                                         <ProductActions id={p.id} />
