@@ -9,12 +9,15 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import Image from "next/image"
 import NotFoundProduct from "../products/not-found-product"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import OrderDetails from "./order-detail"
+import { Metadata } from "next"
 
+export const metadata: Metadata = {
+    title: 'Orders',
+    description: 'Latest Orders',
+}
 
 export default async function page() {
     const session = await getSession()
@@ -60,7 +63,7 @@ export default async function page() {
                                     </TableCell>
                                     <TableCell className="text-center">{p.createdAt.toUTCString()}</TableCell>
                                     <TableCell className="text-center">
-                                        <OrderDetails products={p.products} />
+                                        <OrderDetails products={p.products} orderNumber={p.id} />
                                     </TableCell>
                                 </TableRow>
                             ))}

@@ -2,6 +2,16 @@ import React from 'react'
 import { ProfileForm } from './profile-form'
 import { getSession } from '@/lib/dal'
 
+export const generateMetadata = async () => {
+    const session = await getSession()
+    if (!session) return
+
+    return {
+        title: `Hello ${session.username}`,
+        description: `Updating Setting`
+    };
+};
+
 export default async function page() {
     const session = await getSession()
     if (!session) return null

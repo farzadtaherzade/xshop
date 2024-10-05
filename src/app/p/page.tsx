@@ -1,6 +1,7 @@
 import { type Product } from '@prisma/client'
 import React from 'react'
 import ProductCard from './product-card'
+import { Metadata } from 'next'
 
 export const revalidate = 90
 
@@ -11,6 +12,10 @@ const getProducts = async () => {
         return products
     }
     return []
+}
+export const metadata: Metadata = {
+    title: 'Products',
+    description: 'Latest Products',
 }
 
 export default async function page() {

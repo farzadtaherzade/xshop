@@ -11,28 +11,31 @@ export const metadata: Metadata = {
 
 export default async function page({ searchParams }: { searchParams: { id: string } }) {
     const id: string = searchParams.id
-    const product = await prisma.product.findUnique({
-        where: {
-            id
-        },
-        select: {
-            title: true,
-            description: true,
-            price: true,
-            published: true,
-            slug: true,
-            images: true,
-        }
-    })
+    if (id) {
+        const product = await prisma.product.findFirst({
+            where: {
+                id
+            },
+            select: {
+                title: true,
+                description: true,
+                price: true,
+                published: true,
+                slug: true,
+                images: true,
+            }
+        })
+        console.log(id)
 
-    if (product) return (
-        <div>
-            <ProductForm product={{
-                ...product,
-                images: product.images as unknown as ImageJson[]
-            }} />
-        </div>
-    )
+        if (product) return (
+            <div>
+                <ProductForm product={{
+                    ...product,
+                    images: product.images as unknown as ImageJson[]
+                }} />
+            </div>
+        )
+    }
 
     return (
         <div>

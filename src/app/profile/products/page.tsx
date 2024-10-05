@@ -12,7 +12,12 @@ import {
 import Image from "next/image"
 import ProductActions from "./product-actions"
 import NotFoundProduct from "./not-found-product"
+import { Metadata } from "next"
 
+export const metadata: Metadata = {
+    title: 'Created Products',
+    description: 'Latest Created Products',
+}
 
 export default async function page() {
     const session = await getSession()
