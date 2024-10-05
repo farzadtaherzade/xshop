@@ -5,7 +5,7 @@ import prisma from "@/lib/db";
 import { utapi } from "@/actions/uploadthing";
 import { revalidatePath } from "next/cache";
 import { ImageJson } from "@/lib/types";
-import { InputJsonValue } from "@prisma/client/runtime/library";
+import { JsonValue } from "@prisma/client/runtime/library";
 
 export const createProduct = async (
   title: string,
@@ -73,12 +73,16 @@ export const editProduct = async (
   if (!session) return { error: "not authorized" };
 
   const files = formData.getAll("files") as File[];
+  const images: JsonValue[] = [];
 
-  const images: InputJsonValue[] = oldImages.filter((c) => {
-    for (const key of currentImages) {
-      return key === c.url;
+  oldImages.map((image, i) => {
+    const c = currentImages[i];
+    console.log(image, c, c === image.url);
+    if (c === image.url) {
+      images.push(image as unknown as JsonValue);
     }
-  }) as unknown as InputJsonValue[];
+  });
+  console.log(images);
 
   if (files) {
     const response = await utapi.uploadFiles(files);
@@ -93,7 +97,7 @@ export const editProduct = async (
     });
   }
 
-  const product = await prisma.product.update({
+  await prisma.product.update({
     where: {
       slug,
       authorId: session.userId,
@@ -104,13 +108,12 @@ export const editProduct = async (
       published,
       price,
       slug,
-      images,
+      images: images as [],
     },
   });
   return {
-    product,
-    message: "product updated successfully",
-    status: 200,
+    message: "product created successfully",
+    status: 201,
     error: null,
   };
 };

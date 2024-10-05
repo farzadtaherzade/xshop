@@ -69,7 +69,8 @@ export default function ProductForm({ product }: { product?: ProductType }) {
             for (const key of values.images) {
                 formData.append('files', key)
             }
-            const result = await editProduct(
+            console.log(product.images)
+            const { error, message } = await editProduct(
                 values.title,
                 values.description,
                 values.published,
@@ -79,7 +80,19 @@ export default function ProductForm({ product }: { product?: ProductType }) {
                 product.images,
                 formData,
             )
-            console.log(result)
+            if (error) {
+                console.log(error)
+                toast({
+                    variant: "destructive",
+                    title: error,
+                })
+            } else {
+
+                toast({
+                    title: message,
+                    description: String(product),
+                })
+            }
         }
         else {
             for (const key of Object.keys(multipleImages)) {
@@ -95,7 +108,6 @@ export default function ProductForm({ product }: { product?: ProductType }) {
                 formData
             )
             if (error) {
-                console.log(error)
                 toast({
                     variant: "destructive",
                     title: error,
@@ -179,7 +191,7 @@ export default function ProductForm({ product }: { product?: ProductType }) {
                         </FormItem>
                     )}
                 />
-                <div className="grid grid-cols-5 min-h-[9rem] gap-2">
+                <div className="grid grid-cols-5 min-h-[10rem] gap-2">
                     <FormField
                         control={form.control}
                         name="images"
@@ -187,7 +199,7 @@ export default function ProductForm({ product }: { product?: ProductType }) {
                         render={({ field: { value, onChange, ...fieldProps } }) => (
                             <FormItem>
                                 <FormLabel htmlFor="images-input">
-                                    <div className="flex justify-center items-center text-center bg-gray-500 w-full h-full rounded-xl hover:bg-opacity-55 bg-opacity-35 duration-150">
+                                    <div className="flex justify-center items-center text-center bg-gray-500 w-full h-[10rem] rounded-xl hover:bg-opacity-55 bg-opacity-35 duration-150">
                                         <span className="flex gap-x-1 items-center">
                                             <UploadIcon />
                                             Upload
@@ -222,7 +234,7 @@ export default function ProductForm({ product }: { product?: ProductType }) {
                     />
                     {
                         multipleImages.map((image, index) => (
-                            <div className="w-full h-[9rem] relative" key={image}>
+                            <div className="w-full h-[10rem] relative" key={image}>
                                 <Button
                                     variant="outline"
                                     size="icon"
