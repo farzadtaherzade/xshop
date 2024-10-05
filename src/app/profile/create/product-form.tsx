@@ -17,11 +17,12 @@ import { zodResolver } from "@hookform/resolvers/zod"
 
 import { z } from "zod"
 import { Textarea } from "@/components/ui/textarea"
-import { createProduct } from "@/actions/product"
+import { createProduct, editProduct } from "@/actions/product"
 import { useToast } from "@/hooks/use-toast"
 import { useState } from "react"
 import { UploadIcon, XIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { ImageJson } from "@/lib/types"
 
 
 const formSchema = z.object({
@@ -33,57 +34,79 @@ const formSchema = z.object({
     images: z.custom<File[]>(),
 })
 
-export default function ProductForm() {
+type ProductFormType = z.infer<typeof formSchema>
+
+type ProductType = {
+    title: string;
+    description: string;
+    price: number;
+    published: boolean;
+    slug: string;
+    images: ImageJson[];
+}
+
+export default function ProductForm({ product }: { product?: ProductType }) {
     const { toast } = useToast()
-    const form = useForm<z.infer<typeof formSchema>>({
+    const form = useForm<ProductFormType>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            title: "",
-            description: "",
-            price: 0,
-            slug: "",
-            published: true,
+            title: product?.title ?? "",
+            description: product?.description ?? "",
+            price: product?.price ?? 0,
+            slug: product?.slug ?? "",
+            published: product?.published ?? true,
             images: []
         },
     })
-    const [multipleImages, setMultipleImages] = useState<string[]>([]);
+    const [multipleImages, setMultipleImages] = useState<string[]>(product?.images.map(image => {
+        return image.url
+    }) ?? []);
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        // toast({
-        //     title: 'forms',
-        //     description: `
-        //     <pre>
-        //         ${JSON.stringify(values)}
-        //     </pre>
-        //     `
-        // })
-        // console.log(values.images)
         const formData = new FormData()
 
-        for (const key of Object.keys(multipleImages)) {
-            formData.append('files', values.images[Number(key)])
+        if (product) {
+            for (const key of values.images) {
+                formData.append('files', key)
+            }
+            const result = await editProduct(
+                values.title,
+                values.description,
+                values.published,
+                values.slug,
+                values.price,
+                multipleImages,
+                product.images,
+                formData,
+            )
+            console.log(result)
         }
+        else {
+            for (const key of Object.keys(multipleImages)) {
+                formData.append('files', values.images[Number(key)])
+            }
 
-        const { error, message, product } = await createProduct(
-            values.title,
-            values.description,
-            values.published,
-            values.slug,
-            values.price,
-            formData
-        )
-        if (error) {
-            console.log(error)
-            toast({
-                variant: "destructive",
-                title: error,
-            })
-        } else {
+            const { error, message, product } = await createProduct(
+                values.title,
+                values.description,
+                values.published,
+                values.slug,
+                values.price,
+                formData
+            )
+            if (error) {
+                console.log(error)
+                toast({
+                    variant: "destructive",
+                    title: error,
+                })
+            } else {
 
-            toast({
-                title: message,
-                description: String(product),
-            })
+                toast({
+                    title: message,
+                    description: String(product),
+                })
+            }
         }
     }
     return (
@@ -220,7 +243,11 @@ export default function ProductForm() {
                         ))
                     }
                 </div>
-                <Button variant="secondary" size="lg" type="submit">Create Product</Button>
+                <Button variant={
+                    product ? "secondary" : "default"
+                } size="lg" type="submit">
+                    {product ? "Update Product" : "Create Product"}
+                </Button>
             </form>
         </Form>
     )
