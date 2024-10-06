@@ -7,12 +7,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Status {
+  CURRENT
+  ENDING
+  EXIRED
+}
+
 model Product {
   id          String   @id @default(uuid())
   description String
   images      Json[]
   price       Int
-  published   Boolean
+  status      Status   @default(CURRENT)
   slug        String   @unique
   title       String
   views       Int      @default(1)
