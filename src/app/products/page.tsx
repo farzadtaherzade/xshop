@@ -2,27 +2,33 @@ import { type Product } from '@prisma/client'
 import React from 'react'
 import ProductCard from './product-card'
 import { Metadata } from 'next'
+import ProductsHeader from './products-header'
 
 export const revalidate = 90
 
-const getProducts = async () => {
-    const data = await fetch('http://localhost:3000/api/products', {})
+const getProducts = async (sort: string) => {
+    const data = await fetch(`http://localhost:3000/api/products?sort=${sort}`, {})
     if (data.ok) {
         const { products } = await data.json()
         return products
     }
     return []
 }
+
 export const metadata: Metadata = {
     title: 'Products',
     description: 'Latest Products',
 }
 
-export default async function page() {
-    const products: Product[] = await getProducts()
+export default async function page({ searchParams }: { searchParams: { sort: string } }) {
+    const sort = searchParams.sort ?? ""
+    const products: Product[] = await getProducts(sort)
 
     return (
-        <main className='py-5'>
+        <main className='py-5 space-y-8 w-full'>
+
+            <ProductsHeader />
+
             <section className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
                 {products.map((p) => (
                     <ProductCard key={p.id} product={p} />

@@ -17,6 +17,8 @@ model Product {
   title       String
   views       Int      @default(1)
   comments    String[]
+  createdAt   DateTime @default(now()) @db.Date
+  updatedAt   DateTime @updatedAt @db.Date
 
   authorId String
   Author   User   @relation(fields: [authorId], references: [id])
