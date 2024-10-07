@@ -40,7 +40,6 @@ type ProductType = {
     title: string;
     description: string;
     price: number;
-    published: boolean;
     slug: string;
     images: ImageJson[];
 }
@@ -54,7 +53,6 @@ export default function ProductForm({ product }: { product?: ProductType }) {
             description: product?.description ?? "",
             price: product?.price ?? 0,
             slug: product?.slug ?? "",
-            published: product?.published ?? true,
             images: []
         },
     })

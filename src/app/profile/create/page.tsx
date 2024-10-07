@@ -20,7 +20,6 @@ export default async function page({ searchParams }: { searchParams: { id: strin
                 title: true,
                 description: true,
                 price: true,
-                published: true,
                 slug: true,
                 images: true,
             }
