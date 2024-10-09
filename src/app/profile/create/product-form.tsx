@@ -23,6 +23,14 @@ import { useState } from "react"
 import { UploadIcon, XIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { ImageJson } from "@/lib/types"
+import { Status } from "@prisma/client"
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
 
 
 const formSchema = z.object({
@@ -32,6 +40,7 @@ const formSchema = z.object({
     published: z.boolean().default(false),
     slug: z.string().toLowerCase().regex(/^[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*$/),
     images: z.custom<File[]>(),
+    status: z.nativeEnum(Status).default(Status.CURRENT)
 })
 
 type ProductFormType = z.infer<typeof formSchema>
@@ -42,6 +51,7 @@ type ProductType = {
     price: number;
     slug: string;
     images: ImageJson[];
+    status: Status
 }
 
 export default function ProductForm({ product }: { product?: ProductType }) {
@@ -53,7 +63,8 @@ export default function ProductForm({ product }: { product?: ProductType }) {
             description: product?.description ?? "",
             price: product?.price ?? 0,
             slug: product?.slug ?? "",
-            images: []
+            images: [],
+            status: Status.CURRENT
         },
     })
     const [multipleImages, setMultipleImages] = useState<string[]>(product?.images.map(image => {
@@ -71,7 +82,7 @@ export default function ProductForm({ product }: { product?: ProductType }) {
             const { error, message } = await editProduct(
                 values.title,
                 values.description,
-                values.published,
+                values.status,
                 values.slug,
                 values.price,
                 multipleImages,
@@ -100,7 +111,7 @@ export default function ProductForm({ product }: { product?: ProductType }) {
             const { error, message, product } = await createProduct(
                 values.title,
                 values.description,
-                values.published,
+                values.status,
                 values.slug,
                 values.price,
                 formData
@@ -184,6 +195,30 @@ export default function ProductForm({ product }: { product?: ProductType }) {
                                 <Input type="number" {...field} onChange={(e) => {
                                     field.onChange(Number(e.target.value))
                                 }} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="status"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Price</FormLabel>
+                            <FormControl>
+                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                    <FormControl>
+                                        <SelectTrigger>
+                                            <SelectValue placeholder="Select a verified email to display" />
+                                        </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                        <SelectItem value={Status.CURRENT}>Current</SelectItem>
+                                        <SelectItem value={Status.ENDING}>Ending</SelectItem>
+                                        <SelectItem value={Status.EXPIRED}>Expired</SelectItem>
+                                    </SelectContent>
+                                </Select>
                             </FormControl>
                             <FormMessage />
                         </FormItem>

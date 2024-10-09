@@ -6,11 +6,12 @@ import { utapi } from "@/actions/uploadthing";
 import { revalidatePath } from "next/cache";
 import { ImageJson } from "@/lib/types";
 import { JsonValue } from "@prisma/client/runtime/library";
+import { Status } from "@prisma/client";
 
 export const createProduct = async (
   title: string,
   description: string,
-  published: boolean,
+  status: Status,
   slug: string,
   price: number,
   formData: FormData
@@ -44,6 +45,7 @@ export const createProduct = async (
     data: {
       price,
       description,
+      status,
       title,
       slug,
       images: images,
@@ -61,6 +63,7 @@ export const createProduct = async (
 export const editProduct = async (
   title: string,
   description: string,
+  status: Status,
   slug: string,
   price: number,
   currentImages: string[],
@@ -106,6 +109,7 @@ export const editProduct = async (
       price,
       slug,
       images: images as [],
+      status,
     },
   });
   return {

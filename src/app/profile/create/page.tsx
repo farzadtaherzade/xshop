@@ -22,6 +22,7 @@ export default async function page({ searchParams }: { searchParams: { id: strin
                 price: true,
                 slug: true,
                 images: true,
+                status: true
             }
         })
         console.log(id)
