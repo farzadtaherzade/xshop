@@ -10,7 +10,7 @@ datasource db {
 enum Status {
   CURRENT
   ENDING
-  EXIRED
+  EXPIRED
 }
 
 model Product {

@@ -30,7 +30,7 @@ export default async function page() {
         },
     })
 
-    const images = products.map((p) => p.images as unknown as ImageJson)
+    const images = products.map((p) => p.images[0] as unknown as ImageJson)
 
     return (
         <div>

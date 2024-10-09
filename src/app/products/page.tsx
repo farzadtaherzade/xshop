@@ -1,4 +1,4 @@
-import { type Product } from '@prisma/client'
+import { Status, type Product } from '@prisma/client'
 import React from 'react'
 import ProductCard from './product-card'
 import { Metadata } from 'next'
@@ -6,8 +6,8 @@ import ProductsHeader from './products-header'
 
 export const revalidate = 90
 
-const getProducts = async (sort: string) => {
-    const data = await fetch(`http://localhost:3000/api/products?sort=${sort}`, {})
+const getProducts = async (sort: string, status: Status) => {
+    const data = await fetch(`http://localhost:3000/api/products?sort=${sort}&status=${status}`, {})
     if (data.ok) {
         const { products } = await data.json()
         return products
@@ -20,9 +20,10 @@ export const metadata: Metadata = {
     description: 'Latest Products',
 }
 
-export default async function page({ searchParams }: { searchParams: { sort: string } }) {
+export default async function page({ searchParams }: { searchParams: { sort: string, status: Status } }) {
     const sort = searchParams.sort ?? ""
-    const products: Product[] = await getProducts(sort)
+    const status = searchParams.status
+    const products: Product[] = await getProducts(sort, status)
 
     return (
         <main className='py-5 space-y-8 w-full'>

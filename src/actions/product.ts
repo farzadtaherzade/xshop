@@ -44,7 +44,6 @@ export const createProduct = async (
     data: {
       price,
       description,
-      published,
       title,
       slug,
       images: images,
@@ -62,7 +61,6 @@ export const createProduct = async (
 export const editProduct = async (
   title: string,
   description: string,
-  published: boolean,
   slug: string,
   price: number,
   currentImages: string[],
@@ -105,7 +103,6 @@ export const editProduct = async (
     data: {
       title,
       description,
-      published,
       price,
       slug,
       images: images as [],
