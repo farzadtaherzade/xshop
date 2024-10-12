@@ -3,12 +3,18 @@ import React from 'react'
 import AuthImage from '@/assets/11740740_4834406.jpg'
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import { getSession } from '@/lib/dal';
+import { redirect } from 'next/navigation';
 
-export default function layout({
+export default async function layout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const session = await getSession()
+
+    if (session) return redirect('/profile/setting')
+
     return (
         <section className='grid grid-cols-8 min-h-screen p-2'>
             <div className='w-full col-span-4 h-full relative'>
