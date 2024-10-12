@@ -12,7 +12,6 @@ export default async function layout({
     children: React.ReactNode;
 }>) {
     const session = await getSession()
-
     if (session) return redirect('/profile/setting')
 
     return (
