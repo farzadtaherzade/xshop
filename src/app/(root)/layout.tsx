@@ -9,7 +9,7 @@ export default async function RootLayout({
     children: React.ReactNode;
 }>) {
     const session = await getSession()
-    if (session) return redirect('/profile/setting')
+    if (!session) return redirect('/profile/setting')
 
     return (
         <>
