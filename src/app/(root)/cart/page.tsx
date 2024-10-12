@@ -1,7 +1,6 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
 import { useCartStore } from '@/hooks/use-cart'
 import { MinusIcon, PlusIcon, XIcon } from 'lucide-react'
 import Image from 'next/image'
@@ -12,7 +11,7 @@ import NoItems from './no-items'
 
 export default function Page() {
     const router = useRouter()
-    const { items, removeItem, increaseQuantity, decreaseQuantity } = useCartStore()
+    const { items, removeItem, increaseQuantity, decreaseQuantity, clearCart } = useCartStore()
     const total = items.reduce((p, c) => {
         return p + c.quantity
     }, 0)
@@ -36,7 +35,7 @@ export default function Page() {
         <main className='space-y-6'>
             <section className='flex items-center justify-between'>
                 <h1 className='text-3xl font-bold mb-3'>Shopping Cart</h1>
-                <Button size="lg" variant="outline">Clear cart items</Button>
+                <Button size="lg" variant="outline" onClick={() => clearCart()}>Clear cart items</Button>
             </section>
             <section className='grid md:grid-cols-[1fr_300px] lg:grid-cols-[1fr_400px] gap-x-12'>
                 <div className='w-full'>
