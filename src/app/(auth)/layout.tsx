@@ -15,7 +15,7 @@ export default async function layout({
     if (session) return redirect('/profile/setting')
 
     return (
-        <section className='grid grid-cols-8 min-h-screen p-2'>
+        <section className='w-full grid md:grid-cols-8 min-h-screen p-2'>
             <div className='w-full col-span-4 h-full relative'>
                 <Image
                     alt="auth"
@@ -29,7 +29,7 @@ export default async function layout({
                     <ArrowLeft className='w-5 h-5' /> <span>Back</span>
                 </Link>
             </div>
-            <div className='w-[520px] mx-auto col-span-4 flex items-center h-full relative'>
+            <div className='w-full md:max-w-[520px] mx-auto col-span-4 flex items-center h-full relative px-5'>
                 {children}
             </div>
         </section>

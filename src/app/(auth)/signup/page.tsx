@@ -14,7 +14,7 @@ export default function SignupForm() {
 
             <div className='space-y-2'>
                 <label htmlFor="email">Email</label>
-                <Input id="email" name="email" type="email" placeholder="m@example.com" />
+                <Input id="email" name="email" type="email" placeholder="m@example" />
             </div>
             {state?.errors?.email && <p>{state.errors.email}</p>}
 
@@ -41,7 +41,7 @@ export default function SignupForm() {
             )}
 
             <SubmitButton />
-            <p className='absolute bottom-10 translate-x-2/3 dark:text-opacity-65 dark:text-white'>Already have an account? <Link href="/signin" className='undeline font-bold dark:text-white dark:text-opacity-100'>Sign in</Link></p>
+            <p className='absolute bottom-10 left-1/2 transform -translate-x-1/2 dark:text-opacity-65 dark:text-white'>Already have an account? <Link href="/signin" className='undeline font-bold dark:text-white dark:text-opacity-100'>Sign in</Link></p>
         </form>
     )
 }

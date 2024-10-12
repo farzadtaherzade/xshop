@@ -37,7 +37,7 @@ export default function Page() {
                 <h1 className='text-3xl font-bold mb-3'>Shopping Cart</h1>
                 <Button size="lg" variant="outline" onClick={() => clearCart()}>Clear cart items</Button>
             </section>
-            <section className='grid md:grid-cols-[1fr_300px] lg:grid-cols-[1fr_400px] gap-x-12'>
+            <section className='grid md:grid-cols-[1fr_300px] lg:grid-cols-[1fr_400px] gap-x-12 gap-y-4'>
                 <div className='w-full'>
                     {items.length > 0 ? <>
                         {
