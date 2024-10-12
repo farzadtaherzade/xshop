@@ -39,7 +39,7 @@ export async function signup(state: FormState, formData: FormData) {
 
   const user = await prisma.user.create({
     data: {
-      username,
+      username: username.toLowerCase(),
       email,
       password: hasehd,
     },

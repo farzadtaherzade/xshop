@@ -3,7 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Nav from "@/components/header/nav";
-import Container from "@/components/ui/container";
 import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = localFont({
@@ -38,15 +37,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Nav />
           <div className="min-h-screen">
-            <section className="py-12">
-              <Container>
-                {children}
-              </Container>
-              <Toaster />
-            </section>
+            {children}
           </div>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
