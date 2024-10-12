@@ -33,10 +33,12 @@ export default function Page() {
     }
 
     return (
-        <main>
-            <h1 className='text-3xl font-bold mb-3'>Shopping Cart</h1>
-            <Separator />
-            <section className='grid md:grid-cols-[1fr_300px] lg:grid-cols-[1fr_400px] mt-12 gap-x-12'>
+        <main className='space-y-6'>
+            <section className='flex items-center justify-between'>
+                <h1 className='text-3xl font-bold mb-3'>Shopping Cart</h1>
+                <Button size="lg" variant="outline">Clear cart items</Button>
+            </section>
+            <section className='grid md:grid-cols-[1fr_300px] lg:grid-cols-[1fr_400px] gap-x-12'>
                 <div className='w-full'>
                     {items.length > 0 ? <>
                         {
