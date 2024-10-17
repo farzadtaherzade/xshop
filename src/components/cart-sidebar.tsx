@@ -14,11 +14,10 @@ import { ShoppingCart } from "lucide-react"
 import CartItem from "./cart-item"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
-import { useRouter } from "next/navigation"
 import { SessionType } from "@/lib/definitions"
+import Link from "next/link"
 
 export function CartSidebar({ session }: { session: SessionType }) {
-    const router = useRouter()
     const { items } = useCartStore()
     const itemCount = items.length
     const total = items.reduce((p, c) => {
@@ -74,7 +73,11 @@ export function CartSidebar({ session }: { session: SessionType }) {
                         </div>
                     </div>
                     <SheetFooter>
-                        <Button type="submit" className="w-full" onClick={() => router.replace("/cart")}>Save changes</Button>
+                        <Button type="submit" className="w-full" asChild>
+                            <Link href="/cart">
+                                Save changes
+                            </Link>
+                        </Button>
                     </SheetFooter>
                 </div>
             </SheetContent>

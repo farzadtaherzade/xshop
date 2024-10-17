@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
   const token = request.nextUrl.searchParams.get("token");
   const session = await getSession();
   if (status == 0 || !token || !session)
-    return Response.redirect("http://localhost:3000/payment/error");
+    return Response.redirect(`${process.env.URL}/payment/error}`);
 
   const url = "https://pay.ir/pg/verify";
   const payment = await prisma.payment.findFirst({
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
     },
   });
 
-  if (!payment) return Response.redirect("http://localhost:3000/payment/error");
+  if (!payment) return Response.redirect(`${process.env.URL}/payment/error}`);
   const order = await prisma.order.findUnique({
     where: {
       id: payment.orderId,
@@ -56,8 +56,8 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    return Response.redirect("http://localhost:3000/payment/success");
+    return Response.redirect(`${process.env.URL}/payment/success`);
   } else {
-    return Response.redirect("http://localhost:3000/payment/error");
+    return Response.redirect(`${process.env.URL}/payment/error}`);
   }
 }

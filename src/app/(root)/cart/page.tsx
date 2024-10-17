@@ -37,7 +37,7 @@ export default function Page() {
                 <h1 className='text-3xl font-bold mb-3'>Shopping Cart</h1>
                 <Button size="lg" variant="outline" onClick={() => clearCart()}>Clear cart items</Button>
             </section>
-            <section className='grid md:grid-cols-[1fr_300px] lg:grid-cols-[1fr_400px] gap-x-12 gap-y-4'>
+            <section className='grid grid-cols-1 md:grid-cols-[1fr_300px] lg:grid-cols-[1fr_400px] gap-x-12 gap-y-4'>
                 <div className='w-full'>
                     {items.length > 0 ? <>
                         {
@@ -49,7 +49,7 @@ export default function Page() {
                                         </div>
                                         <div className='flex flex-col gap-y-1'>
                                             <div className='flex justify-between font-medium text-base -mb-2'>
-                                                <Link href={`/p/${item.slug}`} className='text-lg font-semibold tracking-wider w-[250px]'>{item.title}</Link>
+                                                <Link href={`/p/${item.slug}`} className='text-lg font-semibold tracking-wider md:w-[250px]'>{item.title}</Link>
                                                 <Button
                                                     variant="ghost"
                                                     size="icon"
@@ -88,7 +88,7 @@ export default function Page() {
                         }
                     </> : <NoItems />}
                 </div>
-                <div className='w-full bg-neutral-50 dark:bg-neutral-950 space-y-5 p-4 rounded-lg border dark:border-opacity-5 dark:border-neutral-100'>
+                <div className='w-full h-fit bg-neutral-50 dark:bg-neutral-950 space-y-5 p-4 rounded-lg border dark:border-opacity-5 dark:border-neutral-100'>
                     <h2 className='text-lg'>Order summary</h2>
                     <div className='flex'>
                         <span className='flex-1 font-light text-sm text-neutral-600'>Item Count</span>

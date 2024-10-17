@@ -17,7 +17,7 @@ model Product {
   id          String   @id @default(uuid())
   description String
   images      Json[]
-  price       Int
+  price       Float
   status      Status   @default(CURRENT)
   slug        String   @unique
   title       String
@@ -25,11 +25,14 @@ model Product {
   comments    String[]
   createdAt   DateTime @default(now()) @db.Date
   updatedAt   DateTime @updatedAt @db.Date
+  quantity    Int      @default(30)
 
   authorId String
   Author   User   @relation(fields: [authorId], references: [id])
 
-  Order Order[]
+  Comment Comment[]
+  itemId  Int?
+  Item    Item[]
 
   @@map("products")
 }
@@ -46,6 +49,7 @@ model User {
   Product   Product[]
   Order     Order[]
   Payment   Payment[]
+  Comment   Comment[]
 
   @@map("users")
 }
@@ -60,8 +64,22 @@ model Order {
   userId String
   User   User   @relation(fields: [userId], references: [id])
 
-  products Product[]
-  Payment  Payment?
+  items   Item[]
+  Payment Payment?
+}
+
+model Item {
+  id       Int    @id @default(autoincrement())
+  quantity Int
+  price    Float
+  title    String
+  image    String
+
+  productId String
+  Product   Product @relation(fields: [productId], references: [id])
+
+  orderId Int
+  Order   Order @relation(fields: [orderId], references: [id])
 }
 
 model Payment {
@@ -76,4 +94,19 @@ model Payment {
 
   orderId Int   @unique
   order   Order @relation(fields: [orderId], references: [id])
+}
+
+model Comment {
+  id   Int    @id @default(autoincrement())
+  rate Int
+  text String @db.VarChar(255)
+
+  userId String
+  User   User   @relation(fields: [userId], references: [id])
+
+  productId String
+  Product   Product @relation(fields: [productId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

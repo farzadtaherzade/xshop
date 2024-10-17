@@ -15,8 +15,14 @@ export async function POST(request: Request) {
       status: "in progress",
       total: amount,
       userId: session.userId,
-      products: {
-        connect: items.map(({ id }) => ({ id })),
+      items: {
+        create: items.map((product) => ({
+          quantity: product.quantity,
+          productId: product.id,
+          price: product.price,
+          image: product.image.url,
+          title: product.title,
+        })),
       },
     },
   });
@@ -25,16 +31,11 @@ export async function POST(request: Request) {
     api: "test",
     amount: String(amount),
     description: "buy an article",
-    redirect: "http://localhost:3000/api/verify",
+    redirect: `${process.env.URL}/api/verify`,
   };
-
-  console.log(pay_options);
 
   const { data } = await axios.post(url, pay_options);
   const { status, token }: PayResponse = data;
-
-  console.log(data);
-  console.log(token, status);
 
   if (status == 1 && token) {
     await prisma.payment.create({

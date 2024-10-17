@@ -28,7 +28,7 @@ export default async function page() {
             userId: session.userId
         },
         include: {
-            products: true
+            items: true,
         }
     })
 
@@ -63,7 +63,7 @@ export default async function page() {
                                     </TableCell>
                                     <TableCell className="text-center">{p.createdAt.toUTCString()}</TableCell>
                                     <TableCell className="text-center">
-                                        <OrderDetails products={p.products} orderNumber={p.id} />
+                                        <OrderDetails items={p.items} orderNumber={p.id} />
                                     </TableCell>
                                 </TableRow>
                             ))}
