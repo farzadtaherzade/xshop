@@ -8,8 +8,10 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import NoItems from './no-items'
+import { useToast } from "@/hooks/use-toast";
 
 export default function Page() {
+    const { toast } = useToast()
     const router = useRouter()
     const { items, removeItem, increaseQuantity, decreaseQuantity, clearCart } = useCartStore()
     const total = items.reduce((p, c) => {
@@ -30,7 +32,6 @@ export default function Page() {
         const data = await response.json()
         router.push(data.url)
     }
-
     return (
         <main className='space-y-6'>
             <section className='flex items-center justify-between'>
@@ -73,8 +74,13 @@ export default function Page() {
                                                     variant="default"
                                                     size="icon"
                                                     onClick={() => {
-                                                        increaseQuantity(item.id)
-                                                        console.log('dasdas')
+                                                        if (item.quantity >= 3) {
+                                                            toast({
+                                                                title: "Quantity cant be more than 3",
+                                                                variant: "destructive"
+                                                            })
+
+                                                        } else increaseQuantity(item.id)
                                                     }}
                                                     className='w-7 h-7'
                                                 >

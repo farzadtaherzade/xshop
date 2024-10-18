@@ -97,9 +97,10 @@ model Payment {
 }
 
 model Comment {
-  id   Int    @id @default(autoincrement())
-  rate Int
-  text String @db.VarChar(255)
+  id       Int     @id @default(autoincrement())
+  rate     Int
+  text     String  @db.VarChar(255)
+  approved Boolean @default(false)
 
   userId String
   User   User   @relation(fields: [userId], references: [id])

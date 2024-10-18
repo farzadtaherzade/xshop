@@ -43,12 +43,16 @@ export const useCartStore = create<CartState>()(
           items: [],
         }),
       increaseQuantity: (id) =>
-        set((state) => ({
-          items: state.items.map((item) => {
-            if (item.id === id) return { ...item, quantity: ++item.quantity };
-            return item;
-          }),
-        })),
+        set((state) => {
+          return {
+            items: state.items.map((item) => {
+              if (item.id === id && item.quantity < 3) {
+                return { ...item, quantity: ++item.quantity };
+              }
+              return item;
+            }),
+          };
+        }),
       decreaseQuantity: (id) =>
         set((state) => {
           const item = state.items.find((item) => item.id === id);
