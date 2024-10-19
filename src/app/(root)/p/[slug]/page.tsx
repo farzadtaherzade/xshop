@@ -13,11 +13,20 @@ import { SlashIcon } from "@radix-ui/react-icons";
 import AddToCartButton from "./add-to-cart-button";
 import ImagesCarousel from "./images";
 import { ImageJson } from "@/lib/types";
+import Comments from "./comments";
+import { getSession } from "@/lib/dal";
 
 const getProduct = async (slug: string) => {
     const product = await prisma.product.findUnique({
         where: {
             slug
+        },
+        include: {
+            Comment: {
+                include: {
+                    User: true
+                }
+            }
         }
     })
     if (!product) return null
@@ -37,6 +46,7 @@ export const generateMetadata = async ({ params }: { params: { slug: string } })
 
 export default async function Page({ params }: { params: { slug: string } }) {
     const product = await getProduct(params.slug)
+    const session = await getSession()
     if (!product) return notFound()
 
     return (
@@ -74,6 +84,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
                     }} />
                 </div>
             </section>
+
+            <Comments comments={product.Comment} productId={product.id} session={session} />
         </main>
     )
 }

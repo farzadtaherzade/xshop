@@ -12,31 +12,31 @@ const links: {
     icons: ReactNode;
     href: string;
     label: string;
-    private: boolean;
+    protected: boolean;
 }[] = [
         {
             href: "/profile/create",
             icons: <PinIcon className="w-5 h-5" />,
             label: "Create",
-            private: true
+            protected: true
         },
         {
             href: "/profile/products",
             icons: <BoxesIcon className="w-5 h-5" />,
             label: "Products",
-            private: true
+            protected: true
         },
         {
             href: "/profile/orders",
             icons: <ListOrderedIcon className="w-5 h-5" />,
             label: "Orders",
-            private: false
+            protected: false
         },
         {
             href: "/profile/setting",
             icons: <SettingsIcon className="w-5 h-5" />,
             label: "Setting",
-            private: false
+            protected: false
         },
     ]
 
@@ -46,19 +46,27 @@ export default function NavLinks({ session }: { session: SessionType }) {
 
     return (
         <nav className="flex gap-4 w-full items-center justify-start">
-            {links.map((link, i) => (
-                <Link href={link.href} className={cn(
-                    "flex items-center flex-col text-sm hover:bg-red-700 hover:bg-opacity-40 rounded-[6px] p-2 duration-200",
-                    {
-                        "bg-primary text-primary-foreground": pathname == link.href
-                    }
-                )} key={i}>
-                    {link.icons}
-                    <span>
-                        {link.label}
-                    </span>
-                </Link>
-            ))}
+            {links.map((link, i) => session?.isAdmin ? <Link href={link.href} className={cn(
+                "flex items-center flex-col text-sm hover:bg-red-700 hover:bg-opacity-40 rounded-[6px] p-2 duration-200",
+                {
+                    "bg-primary text-primary-foreground": pathname == link.href
+                }
+            )} key={i}>
+                {link.icons}
+                <span>
+                    {link.label}
+                </span>
+            </Link> : !link.protected && <Link href={link.href} className={cn(
+                "flex items-center flex-col text-sm hover:bg-red-700 hover:bg-opacity-40 rounded-[6px] p-2 duration-200",
+                {
+                    "bg-primary text-primary-foreground": pathname == link.href
+                }
+            )} key={i}>
+                {link.icons}
+                <span>
+                    {link.label}
+                </span>
+            </Link>)}
         </nav>
     )
 }

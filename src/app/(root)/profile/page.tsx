@@ -1,14 +1,15 @@
 import React from 'react'
 import { getSession } from '@/lib/dal'
+import { redirect } from 'next/navigation'
 
 export default async function page() {
-    const user = await getSession()
-
-    if (!user) return null
+    const session = await getSession()
+    if (!session) return null
+    redirect("/profile/setting")
 
     return (
         <div>
-            {user?.email}
+            {session?.email}
         </div>
     )
 }
