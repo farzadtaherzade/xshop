@@ -7,7 +7,7 @@ import ProductsHeader from './products-header'
 export const revalidate = 90
 
 const getProducts = async (sort: string, status: Status) => {
-    const data = await fetch(`/api/products?sort=${sort}&status=${status}`, {})
+    const data = await fetch(`${process.env.URL}/api/products?sort=${sort}&status=${status}`, {})
     if (data.ok) {
         const { products } = await data.json()
         return products
