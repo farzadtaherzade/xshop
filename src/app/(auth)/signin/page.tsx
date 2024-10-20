@@ -10,6 +10,7 @@ import { useFormState, useFormStatus } from 'react-dom'
 
 export default function Page() {
     const [state, action] = useFormState(signin, undefined)
+    const { pending } = useFormStatus()
 
     return (
         <form action={action} className='w-full space-y-5'>
@@ -37,18 +38,10 @@ export default function Page() {
             <p>{state?.message && state?.message}</p>
 
             <p className='absolute bottom-10 translate-x-2/3 dark:text-opacity-65 dark:text-white'>Dont have an account? <Link href="/signup" className='undeline font-bold dark:text-white dark:text-opacity-100'>Sign up</Link></p>
-            <SubmitButton />
+            <Button disabled={pending} variant="secondary" className='w-full space-x-2' type="submit" size="lg">
+                {pending && <LoaderCircle className='animate-spin' />}
+                <span>Sign in</span>
+            </Button>
         </form>
-    )
-}
-
-export function SubmitButton() {
-    const { pending } = useFormStatus()
-
-    return (
-        <Button disabled={pending} variant="secondary" className='w-full space-x-2' type="submit" size="lg">
-            {pending && <LoaderCircle className='animate-spin' />}
-            <span>Sign in</span>
-        </Button>
     )
 }

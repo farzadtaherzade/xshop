@@ -53,7 +53,7 @@ export async function createComment(data: FormData) {
   const { text, rate, productId } = parsed.data;
 
   try {
-    const comment = await prisma.comment.create({
+    await prisma.comment.create({
       data: {
         productId,
         text,

@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog"
 import CommentForm from "./comment-form";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Prisma, User } from '@prisma/client'
+import { Prisma } from '@prisma/client'
 import { Rating } from "react-simple-star-rating";
 import { useOptimistic } from "react";
 import { SessionType } from "@/lib/definitions";
